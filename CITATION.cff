@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated article."
+title: "Branch-and-bound and dynamic-programming path planning for connected and non-connected automated vehicles"
+type: software
+authors:
+  - family-names: Typaldos
+    given-names: Panagiotis
+repository-code: "https://github.com/ptypald/bnb-DP"
+preferred-citation:
+  type: article
+  title: "Optimization-based path-planning for connected and non-connected automated vehicles"
+  authors:
+    - family-names: Typaldos
+      given-names: Panagiotis
+    - family-names: Papageorgiou
+      given-names: Markos
+    - family-names: Papamichail
+      given-names: Ioannis
+  journal: "Transportation Research Part C: Emerging Technologies"
+  volume: 134
+  year: 2022
+  doi: 10.1016/j.trc.2021.103487

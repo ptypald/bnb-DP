@@ -65,21 +65,6 @@ struct {
 unsigned interpolate = 0;
 unsigned interpolate_oddity = 0;
 
-static void read_P_addval(char *buf, const char *name, double **dst, int *dstlen) {
-	char fmt[1024];
-	int ival;
-	double dval;
-
-	snprintf(fmt, sizeof(fmt), "\"%s(%s)\":%s", name, "%d", "%lf");
-	if (sscanf_s(buf, fmt, &ival, &dval)) {
-		if (*dstlen <= ival + 1) {
-			*dstlen = ival + 1;
-			assert(((*dst) = (double*)realloc((*dst), sizeof(double)*(*dstlen))));
-		}
-		(*dst)[ival] = dval;
-	}
-}
-
 /* load problem in structure P */
 static void read_P(void) {
 
@@ -286,7 +271,7 @@ static int discretizexv(node_t *state) {
 	return 0;
 }
 
-static double crash(node_t state, int dy) {
+static double crash(node_t state) {
 	int i; 
 	double dx;
 	double sgap;
@@ -351,7 +336,7 @@ static void printsol(node_t initial) {
 			state[k].v,
 			ACCESS(J, state[k]),
 			c.u, c.dy,
-			crash(state[k],0));
+			crash(state[k]));
 
 		if ((nextptr = getnext(state[k], c)) == NULL) {
 			fprintf(stderr, "invalid \n");
@@ -446,7 +431,7 @@ static void dp(void) {
 
 					if (here.k == P.numsteps - 1) {
 						/* final stage costs */
-						J[here.k][here.ix][here.iy][here.iv] = pow(here.v - P.vd, 2) + crash(here, 0);
+						J[here.k][here.ix][here.iy][here.iv] = pow(here.v - P.vd, 2) + crash(here);
 						continue;
 					}
 
@@ -471,7 +456,7 @@ static void dp(void) {
 							if (!(next.y >= 0 && next.y < D.NY))
 								continue;					
 							
-							if (crash(next, dy) != 0)
+							if (crash(next) != 0)
 								continue;
 
 							/* only one lane change allowed */
@@ -499,7 +484,7 @@ static void dp(void) {
 	}
 }
 
-int main(int argc, char **argv) {
+int main(void) {
 	
 	read_P();
 

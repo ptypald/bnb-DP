@@ -8,6 +8,7 @@
 #include <time.h>
   
 #define STEPS 25
+#define VERBOSE 0
 
 double best = DBL_MAX;
 double x_path[STEPS + 1], y_path[STEPS + 1], v_path[STEPS + 1], ux_path[STEPS + 1];
@@ -60,7 +61,7 @@ struct node* newNode(int stage, double cost, int infeasible) {
     node->middleUp = node->middleDown = node->middleSame = NULL;
     node->rightUp = node->rightDown = node->rightSame = NULL; 
      
-    node->infeasible = 0;
+    node->infeasible = infeasible;
     node->laneChnageCount = -1;
 
     return (node); 
@@ -77,7 +78,8 @@ void read_P(void) {
 	int ival;
 	while (fgets(buf, sizeof(buf), stdin))
 	{
-        fprintf(stderr, "%s",buf);
+        if (VERBOSE)
+            fprintf(stderr, "%s", buf);
 		if (buf[0] == '\n')
 			break;
 		if (sscanf(buf, "\"vd\":%lf", &dval) == 1)
@@ -224,9 +226,11 @@ void dfs(struct node* root) {
     else if (root->cost >= root_best)
         return;
     
-    fprintf(stderr, "processed: %d \n", ++countTest);
+    countTest++;
+    if (VERBOSE)
+        fprintf(stderr, "processed: %d \n", countTest);
     // int stage = root->stage += 1; // TODO: check this
-    int dy, dux;
+    int dy;
     double u = 2;
     
     /* leftUp node assuming ux = -u -- uy = +1 */
@@ -381,7 +385,7 @@ void dfs(struct node* root) {
     dfs(root->rightSame);
 }
 
-int main() { 
+int main(void) { 
 
     clock_t start, end;
     double cpu_time_used;
@@ -401,12 +405,15 @@ int main() {
     dfs(root);
     printPreorder(root); 
     
-    printf("\n");
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("CPU-time: %.4f \n", cpu_time_used);
 
     FILE *f = fopen("viz/data/data.js", "w+");
+    if (f == NULL) {
+        perror("viz/data/data.js");
+        return 1;
+    }
     fprintf(f, "var Data = { \n");
     for (int k = 0; k <= P.numsteps; k++) {
         // printf("(%d) %f -- %f -- %f -- %f -- %f \n", i, best_path[i], S.obst_x[i][0], S.obst_x[i][1], S.obst_x[i][2], S.obst_x[i][3]);

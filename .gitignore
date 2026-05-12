@@ -1,2 +1,13 @@
-/.DS_Store
-/kyriakos
+.DS_Store
+kyriakos/
+
+# Local build products
+build/
+*.o
+*.out
+a.out
+*.exe
+
+# Editor and OS clutter
+*~
+.vscode/
