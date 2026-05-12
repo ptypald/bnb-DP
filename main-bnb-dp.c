@@ -179,7 +179,7 @@ double crash(struct node* node) {
 
 int temp_data = 0, count = 0;
 void printPreorder(struct node* nodes) { 
-    // path[0] = nodes->ux;
+    
     if ((nodes == NULL) || nodes->infeasible == 1)
         return; 
     
@@ -229,7 +229,7 @@ void dfs(struct node* root) {
     countTest++;
     if (VERBOSE)
         fprintf(stderr, "processed: %d \n", countTest);
-    // int stage = root->stage += 1; // TODO: check this
+    
     int dy;
     double u = 2;
     
@@ -237,7 +237,7 @@ void dfs(struct node* root) {
     dy = 1.0;
     root->leftUp = newNode(stage, 0, 0);
     root->leftUp->ux = -u;
-    root->leftUp->y = root->y + dy;   //TODO
+    root->leftUp->y = root->y + dy;
     if (root->leftUp->y != root->y)
         root->leftUp->laneChnageCount = root->laneChnageCount + 1;
     root->leftUp->x = root->x + root->v + 0.5*root->leftUp->ux*P.T;
@@ -249,7 +249,7 @@ void dfs(struct node* root) {
     dy = -1.0;
     root->leftDown = newNode(stage, 0, 0);
     root->leftDown->ux = -u;
-    root->leftDown->y = root->y + dy;   //TODO
+    root->leftDown->y = root->y + dy;
     if (root->leftDown->y != root->y)
         root->leftDown->laneChnageCount = root->laneChnageCount + 1;
     root->leftDown->x = root->x + root->v + 0.5*root->leftDown->ux*P.T;
@@ -261,7 +261,7 @@ void dfs(struct node* root) {
     dy = 0.0;
     root->leftSame = newNode(stage, 0, 0);
     root->leftSame->ux = -u;
-    root->leftSame->y = root->y + dy;   //TODO
+    root->leftSame->y = root->y + dy;
     if (root->leftSame->y != root->y)
         root->leftSame->laneChnageCount = root->laneChnageCount + 1;
     root->leftSame->x = root->x + root->v + 0.5*root->leftSame->ux*P.T;
@@ -273,7 +273,7 @@ void dfs(struct node* root) {
     dy = 1.0;
     root->middleUp = newNode(stage, 0, 0);
     root->middleUp->ux = 0.0;
-    root->middleUp->y = root->y + dy;   //TODO
+    root->middleUp->y = root->y + dy;
     if (root->middleUp->y != root->y)
         root->middleUp->laneChnageCount = root->laneChnageCount + 1;
     root->middleUp->x = root->x + root->v + 0.5*root->middleUp->ux*P.T;
@@ -285,7 +285,7 @@ void dfs(struct node* root) {
     dy = -1.0;
     root->middleDown = newNode(stage, 0, 0);
     root->middleDown->ux = 0.0;
-    root->middleDown->y = root->y + dy;   //TODO
+    root->middleDown->y = root->y + dy;
     if (root->middleDown->y != root->y)
         root->middleDown->laneChnageCount = root->laneChnageCount + 1;
     root->middleDown->x = root->x + root->v + 0.5*root->middleDown->ux*P.T;
@@ -297,7 +297,7 @@ void dfs(struct node* root) {
     dy = 0.0;
     root->middleSame = newNode(stage, 0, 0);
     root->middleSame->ux = 0.0;
-    root->middleSame->y = root->y + dy;   //TODO
+    root->middleSame->y = root->y + dy;
     if (root->middleSame->y != root->y)
         root->middleSame->laneChnageCount = root->laneChnageCount + 1;
     root->middleSame->x = root->x + root->v + 0.5*root->middleSame->ux*P.T;
@@ -309,7 +309,7 @@ void dfs(struct node* root) {
     dy = 1.0;
     root->rightUp = newNode(stage, 0, 0);
     root->rightUp->ux = u;
-    root->rightUp->y = root->y + dy;   //TODO
+    root->rightUp->y = root->y + dy;
     if (root->rightUp->y != root->y)
         root->rightUp->laneChnageCount = root->laneChnageCount + 1;
     root->rightUp->x = root->x + root->v + 0.5*root->rightUp->ux*P.T;
@@ -321,7 +321,7 @@ void dfs(struct node* root) {
     dy = -1.0;
     root->rightDown = newNode(stage, 0, 0);
     root->rightDown->ux = u;
-    root->rightDown->y = root->y + dy;   //TODO
+    root->rightDown->y = root->y + dy;
     if (root->rightDown->y != root->y)
         root->rightDown->laneChnageCount = root->laneChnageCount + 1;
     root->rightDown->x = root->x + root->v + 0.5*root->rightDown->ux*P.T;
@@ -333,7 +333,7 @@ void dfs(struct node* root) {
     dy = 0.0;
     root->rightSame = newNode(stage, 0, 0);
     root->rightSame->ux = u;
-    root->rightSame->y = root->y + dy;   //TODO
+    root->rightSame->y = root->y + dy;
     if (root->rightSame->y != root->y)
         root->rightSame->laneChnageCount = root->laneChnageCount + 1;
     root->rightSame->x = root->x + root->v + 0.5*root->rightSame->ux*P.T;
